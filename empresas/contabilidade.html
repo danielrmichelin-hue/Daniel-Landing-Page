@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iter Gestão Contábil</title>
+<meta name="description" content="Serviços contábeis excepcionais e soluções financeiras personalizadas. Contábil, fiscal, trabalhista, legalização e BPO financeiro.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap');
+
+:root{
+  --navy:#2B1550; --orange:#F2560A; --orange-deep:#C2470A; --amber:#F5943D; --indigo:#4B2E73;
+  --paper:#F4F1EA; --line-l:#DBD4C5;
+  --ink:#190B2E; --ink-2:#241143;
+  --body-l:#544D66; --body-d:#C6BED8;
+  --white:#FFFFFF;
+  --line-d:rgba(255,255,255,0.14);
+  --grad: linear-gradient(115deg, var(--navy) 0%, var(--indigo) 55%, var(--orange-deep) 100%);
+  --serif:'Fraunces', serif; --sans:'Inter', sans-serif; --mono:'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper);
+  -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+.eyebrow{font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+section{position:relative;}
+::selection{background:var(--orange); color:var(--ink);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--orange); outline-offset:3px;}
+
+/* logo */
+.logo-mark{height:34px; width:auto;}
+.footer .logo-mark{height:30px;}
+
+/* ---------------- NAV ---------------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 40px; transition:background .3s ease, padding .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{ background:rgba(18,33,29,0.9); backdrop-filter:blur(10px); padding:14px 40px; border-color:var(--line-d);}
+.nav-links{display:flex; align-items:center; gap:34px;}
+.nav-links a{font-size:13px; font-weight:600; color:var(--body-d); letter-spacing:.02em; position:relative; padding:4px 0;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--white);}
+.nav-links a.active::after{content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--orange);}
+.nav-cta{border:1px solid rgba(255,255,255,0.35); color:var(--white); font-size:12.5px; font-weight:700; padding:10px 20px; letter-spacing:.03em; transition:background .2s, border-color .2s;}
+.nav-cta:hover{background:var(--white); color:var(--ink);}
+.nav-burger{display:none; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35); align-items:center; justify-content:center; color:var(--white); cursor:pointer; background:none; flex:0 0 auto;}
+.nav-burger svg{font-size:18px;}
+@media (max-width:860px){ .nav-links{display:none;} .nav-cta{display:none;} .nav-burger{display:flex;} }
+
+.mobile-menu{position:fixed; inset:0; background:var(--ink); z-index:99; display:flex; flex-direction:column; justify-content:center; padding:40px; transform:translateY(-100%); transition:transform .35s ease;}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-family:var(--serif); font-size:32px; font-weight:600; color:var(--white); padding:14px 0; border-bottom:1px solid var(--line-d);}
+.mobile-menu .mm-cta{margin-top:30px; align-self:flex-start; font-family:var(--sans); font-size:13px; font-weight:700; background:var(--grad); color:var(--white); padding:16px 30px; border:none;}
+.mobile-menu-close{position:absolute; top:22px; right:22px; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35); display:flex; align-items:center; justify-content:center; color:var(--white); background:none; cursor:pointer;}
+
+/* ---------------- RAIL ---------------- */
+.rail{position:fixed; left:40px; top:50%; transform:translateY(-50%); z-index:90; display:flex; flex-direction:column; gap:22px; opacity:0; pointer-events:none; transition:opacity .4s ease;}
+.rail.visible{opacity:1; pointer-events:auto;}
+.rail a{display:flex; align-items:center; gap:10px; font-size:11px; font-weight:700; color:var(--body-d); letter-spacing:.05em;}
+.rail .tick{width:16px; height:1px; background:var(--line-d); transition:width .25s, background .25s;}
+.rail a:hover .tick, .rail a.active .tick{width:30px; background:var(--orange);}
+.rail a.active{color:var(--white);}
+@media (max-width:1240px){ .rail{display:none;} }
+
+/* ---------------- HERO ---------------- */
+.hero{background:var(--ink); color:var(--white); min-height:100vh; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; padding:140px 0 90px;}
+.hero-mesh{position:absolute; inset:0; opacity:0.9;
+  background:
+    radial-gradient(ellipse 60% 50% at 88% 12%, rgba(242,86,10,0.30), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 100% 85%, rgba(75,46,115,0.38), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 8% 95%, rgba(43,21,80,0.55), transparent 60%);
+}
+.hero-ledger{position:absolute; top:0; right:0; width:44%; height:100%; opacity:.5;
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent 39px, rgba(198,190,216,0.16) 40px);
+  -webkit-mask-image: linear-gradient(to left, black, transparent 85%); mask-image: linear-gradient(to left, black, transparent 85%);
+}
+.hero-inner{position:relative; z-index:2;}
+.hero .eyebrow{color:var(--orange); margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+.hero .eyebrow::before{content:""; width:26px; height:1px; background:var(--orange);}
+.hero h1{font-family:var(--serif); font-weight:600; font-size:clamp(40px,6.4vw,76px); line-height:1.04; letter-spacing:-0.01em; max-width:16ch; margin-bottom:28px;}
+.hero h1 em{font-style:italic; font-weight:500; color:transparent; -webkit-text-stroke:1.5px var(--white);}
+.hero-sub{font-size:17px; line-height:1.7; color:var(--body-d); max-width:540px; margin-bottom:44px;}
+.hero-ctas{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.btn{display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:700; padding:16px 30px; letter-spacing:.02em; border:1px solid transparent; cursor:pointer;}
+.btn-primary{background:var(--grad); color:var(--white);}
+.btn-primary svg{transition:transform .2s;}
+.btn-primary:hover svg{transform:translate(3px,-3px);}
+.btn-ghost-dark{border-color:rgba(255,255,255,0.3); color:var(--white);}
+.btn-ghost-dark:hover{background:rgba(255,255,255,0.08);}
+
+.hero-stats{position:relative; z-index:2; margin-top:90px; border-top:1px solid var(--line-d); padding-top:26px; display:flex; gap:56px; flex-wrap:wrap;}
+.hero-stats .stat b{font-family:var(--serif); font-size:26px; display:block; color:var(--white);}
+.hero-stats .stat span{font-size:11.5px; color:var(--body-d); letter-spacing:.04em;}
+
+/* ---------------- SECTION HEADERS ---------------- */
+.sec{padding:130px 0;}
+.sec-head{margin-bottom:60px; max-width:660px;}
+.sec-head .eyebrow{color:var(--orange); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.sec-head .eyebrow::before{content:""; width:26px; height:1px; background:var(--orange);}
+.sec-head h2{font-family:var(--serif); font-weight:600; font-size:clamp(32px,4vw,46px); line-height:1.08; letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px;}
+.sec-head h2 i{font-style:italic; font-weight:500; color:var(--indigo);}
+.sec-head p{font-size:16px; line-height:1.75; color:var(--body-l);}
+
+/* ---------------- SOBRE ---------------- */
+.sec-sobre{background:var(--paper);}
+.sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+.sobre-quote{font-family:var(--serif); font-style:italic; font-size:22px; line-height:1.5; color:var(--ink); border-left:2px solid var(--orange); padding-left:26px;}
+.sobre-body p{font-size:14.5px; line-height:1.8; color:var(--body-l); margin-bottom:18px;}
+.sobre-body p:last-child{margin-bottom:0;}
+.sobre-body strong{color:var(--ink);}
+@media (max-width:860px){ .sobre-grid{grid-template-columns:1fr; gap:36px;} }
+
+/* ---------------- ATUACAO (áreas) ---------------- */
+.sec-atuacao{background:var(--ink); color:var(--white);}
+.sec-atuacao .sec-head .eyebrow{color:var(--orange);}
+.sec-atuacao .sec-head h2{color:var(--white);}
+.sec-atuacao .sec-head p{color:var(--body-d);}
+
+.area-tabs{display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--line-d);}
+.area-tab{flex:1; min-width:150px; padding:20px 20px; border-right:1px solid var(--line-d); cursor:pointer; transition:background .2s;}
+.area-tab:last-child{border-right:none;}
+.area-tab .anum{font-family:var(--serif); font-size:12px; color:var(--body-d); display:block; margin-bottom:6px;}
+.area-tab .aname{font-size:13.5px; font-weight:700; color:var(--white); line-height:1.3;}
+.area-tab:hover{background:rgba(255,255,255,0.05);}
+.area-tab.active{background:var(--grad);}
+.area-tab.active .anum{color:rgba(255,255,255,0.85);}
+
+.area-panel{display:none; border:1px solid var(--line-d); border-top:none; padding:52px;}
+.area-panel.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+.area-panel-top{display:flex; justify-content:space-between; gap:40px; margin-bottom:40px; flex-wrap:wrap; padding-bottom:32px; border-bottom:1px solid var(--line-d);}
+.area-panel-top h3{font-family:var(--serif); font-weight:600; font-size:30px; margin-bottom:12px;}
+.area-panel-top p{font-size:14.5px; line-height:1.7; color:var(--body-d); max-width:460px;}
+.area-icn{width:52px; height:52px; display:flex; align-items:center; justify-content:center; background:var(--grad); font-size:22px; flex:0 0 auto; color:var(--white);}
+
+.items-list{list-style:none; columns:2; column-gap:40px;}
+.items-list li{display:flex; align-items:flex-start; gap:12px; padding:10px 0; font-size:13.5px; color:var(--white); border-bottom:1px solid var(--line-d); break-inside:avoid;}
+.items-list li svg{flex:0 0 auto; margin-top:3px; font-size:13px; color:var(--orange);}
+@media (max-width:700px){ .items-list{columns:1;} }
+
+/* ---------------- CONFIABILIDADE ---------------- */
+.sec-confi{background:var(--paper);}
+.confi-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:start;}
+.confi-icn{width:64px; height:64px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line-l); color:var(--navy); font-size:28px; margin-bottom:24px;}
+.confi-grid h3{font-family:var(--serif); font-weight:600; font-size:28px; margin-bottom:16px; color:var(--ink);}
+.confi-grid .lead-text{font-size:15px; line-height:1.75; color:var(--body-l);}
+.confi-detail{font-size:13.5px; line-height:1.85; color:var(--body-l); background:var(--white); border:1px solid var(--line-l); padding:32px;}
+@media (max-width:860px){ .confi-grid{grid-template-columns:1fr; gap:32px;} }
+
+/* ---------------- VALORES ---------------- */
+.sec-valores{background:var(--paper);}
+.valores-grid{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line-l); border-left:1px solid var(--line-l);}
+.valor-item{border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l); padding:32px 26px;}
+.valor-icn{width:38px; height:38px; display:flex; align-items:center; justify-content:center; color:var(--navy); margin-bottom:18px; font-size:19px; border:1px solid var(--line-l);}
+.valor-item:nth-child(3n+2) .valor-icn{color:var(--indigo);}
+.valor-item:nth-child(3n+3) .valor-icn{color:var(--amber);}
+.valor-item h3{font-size:15px; font-weight:700; margin-bottom:8px; color:var(--ink);}
+.valor-item p{font-size:12.5px; line-height:1.6; color:var(--body-l);}
+@media (max-width:860px){
+  .valores-grid{grid-template-columns:repeat(2,1fr);}
+  .valor-item{border-right:1px solid var(--line-l);}
+  .valor-item:nth-child(2n){border-right:none;}
+  .valor-item:nth-child(3n){border-right:1px solid var(--line-l);}
+}
+@media (max-width:560px){
+  .valores-grid{grid-template-columns:1fr;}
+  .valor-item{border-right:none !important;}
+}
+
+/* ---------------- CONTATO ---------------- */
+.sec-contato{background:var(--ink); color:var(--white); padding-bottom:0;}
+.contato-top{display:flex; justify-content:space-between; gap:60px; flex-wrap:wrap; padding-bottom:90px; border-bottom:1px solid var(--line-d);}
+.contato-top h2{font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,56px); line-height:1.08; max-width:12ch;}
+.contato-top .ctxt{max-width:400px;}
+.contato-top .ctxt p{font-size:15px; color:var(--body-d); line-height:1.75; margin-bottom:30px;}
+
+.contato-grid{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line-d);}
+.contato-cell{display:block; border-right:1px solid var(--line-d); padding:34px 26px; transition:background .2s;}
+.contato-cell:hover{background:rgba(255,255,255,0.05);}
+.contato-cell:last-child{border-right:none;}
+.contato-cell svg{font-size:19px; color:var(--orange); margin-bottom:16px; display:block;}
+.contato-cell .lbl{font-size:10.5px; font-weight:700; letter-spacing:.12em; color:var(--body-d); margin-bottom:6px;}
+.contato-cell .val{font-size:14.5px; font-weight:600; color:var(--white); word-break:break-word; line-height:1.4;}
+@media (max-width:860px){ .contato-grid{grid-template-columns:repeat(2,1fr);} .contato-cell:nth-child(2n){border-right:none;} }
+@media (max-width:560px){ .contato-grid{grid-template-columns:1fr;} .contato-cell{border-right:none !important; border-bottom:1px solid var(--line-d);} }
+
+.footer{display:flex; justify-content:space-between; align-items:center; padding:30px 0; margin-top:70px; flex-wrap:wrap; gap:16px;}
+.footer small{font-size:11px; color:var(--body-d); letter-spacing:.05em;}
+
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+@media (max-width:640px){
+  .wrap{padding:0 22px;}
+  .nav{padding:18px 22px;}
+  .sec{padding:88px 0;}
+  .hero{padding:120px 0 60px;}
+  .contato-top{padding-bottom:60px;}
+  .area-panel{padding:32px 22px;}
+}
+@media (max-width:480px){
+  .hero-ctas{flex-direction:column; align-items:flex-start; gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <img class="logo-mark" src="data:image/png;base64,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" alt="Iter Gestão Contábil">
+  <div class="nav-links" id="navLinks"><a href="#sobre" data-sec="sobre">Sobre</a><a href="#atuacao" data-sec="atuacao">Áreas de Atuação</a><a href="#confiabilidade" data-sec="confiabilidade">Confiabilidade</a><a href="#valores" data-sec="valores">Valores</a><a href="#contato" data-sec="contato">Contato</a></div>
+  <a href="#contato" class="nav-cta">Falar com a Iter</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fechar menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  <a href="#sobre" data-sec="sobre">Sobre</a><a href="#atuacao" data-sec="atuacao">Áreas de Atuação</a><a href="#confiabilidade" data-sec="confiabilidade">Confiabilidade</a><a href="#valores" data-sec="valores">Valores</a><a href="#contato" data-sec="contato">Contato</a>
+  <a href="#contato" class="mm-cta" id="mmCta">Falar com a Iter</a>
+</div>
+
+<div class="rail" id="rail"><a href="#hero" data-sec="hero"><span class="tick"></span>Início</a><a href="#sobre" data-sec="sobre"><span class="tick"></span>Sobre</a><a href="#atuacao" data-sec="atuacao"><span class="tick"></span>Áreas de Atuação</a><a href="#confiabilidade" data-sec="confiabilidade"><span class="tick"></span>Confiabilidade</a><a href="#valores" data-sec="valores"><span class="tick"></span>Valores</a><a href="#contato" data-sec="contato"><span class="tick"></span>Contato</a></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-ledger"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">GESTÃO CONTÁBIL &amp; FINANCEIRA</div>
+    <h1>Sua gestão <em>empresarial</em>,<br>não só sua contabilidade.</h1>
+    <p class="hero-sub">O Grupo Iter tem o compromisso de fornecer serviços contábeis excepcionais e soluções financeiras personalizadas, guiando sua empresa com inovação, integridade e excelência rumo ao sucesso financeiro.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5511980635154" target="_blank" rel="noopener" class="btn btn-primary">Falar com a Iter <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      <a href="#atuacao" class="btn btn-ghost-dark">Áreas de atuação</a>
+    </div>
+  </div>
+  <div class="hero-stats wrap">
+    <div class="stat"><b>05</b><span>ÁREAS DE ATUAÇÃO</span></div>
+    <div class="stat"><b>100%</b><span>SIGILO DAS INFORMAÇÕES</span></div>
+    <div class="stat"><b>Cabreúva/SP</b><span>SEDE DO GRUPO ITER</span></div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section class="sec sec-sobre" id="sobre">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Sobre</div>
+      <h2>Somos mais que <i>parceiros</i> —<br>somos sua gestão empresarial</h2>
+    </div>
+    <div class="sobre-grid">
+      <div class="sobre-quote reveal">&ldquo;Guiando sua empresa com inovação, integridade e excelência contábil, conduzindo-a com sabedoria rumo ao sucesso financeiro.&rdquo;</div>
+      <div class="sobre-body reveal">
+        <p><strong>O Grupo Iter</strong> tem o compromisso de fornecer serviços contábeis excepcionais e soluções financeiras personalizadas para ajudar empresas a alcançar seus objetivos.</p>
+        <p>Através de nossa experiência, integridade e compromisso com a excelência, buscamos ser parceiros confiáveis, capacitando nossos clientes a tomar decisões informadas e alcançar o sucesso financeiro sustentável.</p>
+        <p>Reconhecemos que nossos clientes não buscam apenas resultados financeiros sólidos, mas também desejam alcançar objetivos mais amplos — por isso vamos além do simples cumprimento de tarefas contábeis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÁREAS DE ATUAÇÃO ============ -->
+<section class="sec sec-atuacao" id="atuacao">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Áreas de atuação</div>
+      <h2>Gestão completa,<br>em <i>cinco frentes</i></h2>
+      <p>Contabilidade, tributário, BPO, legalização e assuntos trabalhistas e previdenciários — para que sua equipe se concentre plenamente na estratégia e no crescimento da empresa.</p>
+    </div>
+    <div class="area-tabs" id="areaTabs">
+        <div class="area-tab active" data-area="contabil">
+          <span class="anum">01</span>
+          <span class="aname">Contábil</span>
+        </div>
+        <div class="area-tab" data-area="fiscal">
+          <span class="anum">02</span>
+          <span class="aname">Fiscal</span>
+        </div>
+        <div class="area-tab" data-area="trabalhista">
+          <span class="anum">03</span>
+          <span class="aname">Trabalhista e Previdenciária</span>
+        </div>
+        <div class="area-tab" data-area="legalizacao">
+          <span class="anum">04</span>
+          <span class="aname">Legalização</span>
+        </div>
+        <div class="area-tab" data-area="bpo">
+          <span class="anum">05</span>
+          <span class="aname">BPO Financeiro</span>
+        </div></div>
+    <div id="areaPanels">
+        <div class="area-panel active" data-panel="contabil">
+          <div class="area-panel-top">
+            <div>
+              <h3>Contábil</h3>
+              <p>Agilidade com muita responsabilidade em todo processamento contábil.</p>
+            </div>
+            <div class="area-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+          </div>
+          <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Classificação e conciliação contábil mensal</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Demonstrações Contábeis (DRE, balancete)</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Conciliação contábil, incluindo memórias de cálculo e composição dos saldos</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Gestão de ativos fixos</span></li></ul>
+        </div>
+        <div class="area-panel" data-panel="fiscal">
+          <div class="area-panel-top">
+            <div>
+              <h3>Fiscal</h3>
+              <p>Agilidade e qualidade nos processamentos fiscais, com cumprimento de todos os prazos legais.</p>
+            </div>
+            <div class="area-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+          </div>
+          <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Preparação e envio de declarações fiscais obrigatórias</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Elaboração e envio de obrigações acessórias</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Conformidade com regulamentações fiscais em constante mudança</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Escrituração fiscal</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Atendimento a fiscalização Municipal, Estadual e Federal</span></li></ul>
+        </div>
+        <div class="area-panel" data-panel="trabalhista">
+          <div class="area-panel-top">
+            <div>
+              <h3>Trabalhista e Previdenciária</h3>
+              <p>Processamento rápido e seguro das rotinas da folha de pagamento.</p>
+            </div>
+            <div class="area-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          </div>
+          <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Processamento da folha de pagamento</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Apuração de impostos trabalhistas e encargos sociais</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Admissão e rescisão</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Cálculos de horas extras e adicionais</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Atualização de parâmetros salariais</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Controle de férias e licenças</span></li></ul>
+        </div>
+        <div class="area-panel" data-panel="legalizacao">
+          <div class="area-panel-top">
+            <div>
+              <h3>Legalização</h3>
+              <p>Apoio completo para todas as documentações, licenças e alvarás necessários.</p>
+            </div>
+            <div class="area-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div>
+          </div>
+          <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Abertura e encerramento de CNPJ</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Alteração contratual</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Alvarás e licenças</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Registro nos órgãos públicos</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Estruturação de holdings</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Reorganização societária</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Negociação de dívidas tributárias</span></li></ul>
+        </div>
+        <div class="area-panel" data-panel="bpo">
+          <div class="area-panel-top">
+            <div>
+              <h3>BPO Financeiro</h3>
+              <p>Serviço especializado em contas a pagar e receber, conciliação bancária e análise financeira.</p>
+            </div>
+            <div class="area-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
+          </div>
+          <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Contas a pagar</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Contas a receber</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Faturamento</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Conciliação financeira</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Cobrança de inadimplentes</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Gestão de saldos bancários</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Gestão de investimentos</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Gestão de financiamentos</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Relatórios financeiros e gerenciais</span></li></ul>
+        </div></div>
+  </div>
+</section>
+
+<!-- ============ CONFIABILIDADE ============ -->
+<section class="sec sec-confi" id="confiabilidade">
+  <div class="wrap">
+    <div class="confi-grid">
+      <div class="reveal">
+        <div class="confi-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+        <h3>Confiabilidade</h3>
+        <p class="lead-text">A Iter Contábil responsabiliza-se pela manutenção do mais absoluto sigilo com relação às informações confidenciais que venha a conhecer por ocasião da execução dos serviços.</p>
+      </div>
+      <div class="confi-detail reveal">
+        Será considerada confidencial toda e qualquer informação a que a Iter venha a ter acesso, direta ou indiretamente, em função dos serviços prestados — incluindo documentação oral, escrita, gravada e computadorizada divulgada pelo cliente por meio de qualquer forma ou obtida em observações, entrevistas ou análises. Isso abrange, sem limitações, registros, relatórios, dados, compilações, especificações, estratégias, projeções, processos, procedimentos e técnicas de qualquer natureza.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALORES ============ -->
+<section class="sec sec-valores" id="valores">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Valores</div>
+      <h2>O que <i>orienta</i> cada decisão que tomamos</h2>
+      <p>Integridade, excelência, empatia, inovação constante, colaboração e responsabilidade não são apenas palavras — são a espinha dorsal da nossa cultura.</p>
+    </div>
+    <div class="valores-grid">
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h3>Integridade</h3><p>Agimos com transparência em cada número e em cada decisão.</p>
+        </div>
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+          <h3>Excelência</h3><p>Buscamos precisão técnica em tudo o que entregamos.</p>
+        </div>
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+          <h3>Empatia</h3><p>Entendemos o momento e os objetivos de cada cliente.</p>
+        </div>
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+          <h3>Inovação Constante</h3><p>Evoluímos processos para acompanhar um cenário fiscal em mudança.</p>
+        </div>
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+          <h3>Colaboração</h3><p>Atuamos como parceiros, não apenas prestadores de serviço.</p>
+        </div>
+        <div class="valor-item reveal">
+          <div class="valor-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+          <h3>Responsabilidade</h3><p>Cumprimos prazos legais com rigor e cuidado.</p>
+        </div></div>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="sec sec-contato" id="contato">
+  <div class="wrap">
+    <div class="contato-top">
+      <h2 class="reveal">Vamos guiar sua empresa?</h2>
+      <div class="ctxt reveal">
+        <p>Entre em contato conosco e vamos conduzir sua empresa com sabedoria rumo ao sucesso financeiro, através de serviços personalizados que atendem às suas necessidades específicas.</p>
+        <a href="https://wa.me/5511980635154" target="_blank" rel="noopener" class="btn btn-primary">Agendar conversa <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+    </div>
+    <div class="contato-grid"><div class="contato-cell"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div class="lbl">ENDEREÇO</div><div class="val">Alameda das Quaresmeiras, 52 — Cabreúva/SP</div></div><a class="contato-cell" href="tel:+5511980635154" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><div class="lbl">TELEFONE</div><div class="val">+55 (11) 98063-5154</div></a><a class="contato-cell" href="mailto:atendimento@itercontabil.com.br" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><div class="lbl">E-MAIL</div><div class="val">atendimento@itercontabil.com.br</div></a><a class="contato-cell" href="https://www.linkedin.com/company/iter-gest%C3%A3o-cont%C3%A1bil/" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg><div class="lbl">LINKEDIN</div><div class="val">iter-gestão-contábil</div></a></div>
+    <div class="footer">
+      <img class="logo-mark" src="data:image/png;base64,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" alt="Iter Gestão Contábil">
+      <small>© Iter Gestão Contábil — Grupo Iter</small>
+    </div>
+  </div>
+</section>
+
+<script>
+const nav = document.getElementById('nav');
+const rail = document.getElementById('rail');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  rail.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const railLinks = document.querySelectorAll('.rail a');
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === id));
+      railLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === id));
+    }
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+sections.forEach(s => spy.observe(s));
+
+const reveal = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+
+const tabs = document.querySelectorAll('.area-tab');
+const panels = document.querySelectorAll('.area-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const id = tab.dataset.area;
+    tabs.forEach(t => t.classList.toggle('active', t === tab));
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+  });
+});
+
+const mobileMenu = document.getElementById('mobileMenu');
+const navBurger = document.getElementById('navBurger');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+function openMenu(){ mobileMenu.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu(){ mobileMenu.classList.remove('open'); document.body.style.overflow=''; }
+navBurger.addEventListener('click', openMenu);
+mobileMenuClose.addEventListener('click', closeMenu);
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+</script>
+</body>
+</html>
