@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iter Mídia — Guia de Soluções</title>
+<meta name="description" content="Marketing estratégico, produção de conteúdo e posicionamento digital. Conheça como a Iter Mídia trabalha e quais soluções oferece.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --roxo:#55307E; --magenta:#B453A4; --violeta:#6463A7; --azul:#3587B9;
+  --paper:#F2F3E5; --line-l:#CAD0DE;
+  --ink:#1B1224; --ink-2:#2A1D38;
+  --body-l:#5F5870; --body-d:#C9C0D6;
+  --white:#FFFFFF;
+  --line-d:rgba(255,255,255,0.14);
+  --grad: linear-gradient(115deg, var(--roxo) 0%, var(--violeta) 55%, var(--magenta) 100%);
+  --serif:'Fraunces', serif; --sans:'Inter', sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper);
+  -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+.eyebrow{
+  font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+section{position:relative;}
+::selection{background:var(--magenta); color:var(--white);}
+
+a:focus-visible, button:focus-visible{outline:2px solid var(--magenta); outline-offset:3px;}
+
+/* ---------------- NAV ---------------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 40px;
+  transition:background .3s ease, padding .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{ background:rgba(27,18,36,0.86); backdrop-filter:blur(10px); padding:14px 40px; border-color:var(--line-d);}
+.nav .logo-mark{height:26px;}
+.nav-links{display:flex; align-items:center; gap:36px;}
+.nav-links a{
+  font-size:13px; font-weight:600; color:var(--body-d); letter-spacing:.02em;
+  position:relative; padding:4px 0;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--white);}
+.nav-links a.active::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--magenta);
+}
+.nav-cta{
+  border:1px solid rgba(255,255,255,0.35); color:var(--white); font-size:12.5px; font-weight:700;
+  padding:10px 20px; letter-spacing:.03em; transition:background .2s, border-color .2s;
+}
+.nav-cta:hover{background:var(--white); color:var(--ink);}
+.nav-burger{
+  display:none; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35);
+  align-items:center; justify-content:center; color:var(--white); cursor:pointer; background:none;
+  flex:0 0 auto;
+}
+.nav-burger svg{font-size:18px;}
+@media (max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .nav-burger{display:flex;}
+}
+
+.mobile-menu{
+  position:fixed; inset:0; background:var(--ink); z-index:99;
+  display:flex; flex-direction:column; justify-content:center; padding:40px;
+  transform:translateY(-100%); transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{
+  font-family:var(--serif); font-size:32px; font-weight:600; color:var(--white);
+  padding:14px 0; border-bottom:1px solid var(--line-d);
+}
+.mobile-menu .mm-cta{
+  margin-top:30px; align-self:flex-start; font-family:var(--sans); font-size:13px; font-weight:700;
+  background:var(--grad); color:var(--white); padding:16px 30px; border:none;
+}
+.mobile-menu-close{
+  position:absolute; top:22px; right:22px; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35);
+  display:flex; align-items:center; justify-content:center; color:var(--white); background:none; cursor:pointer;
+}
+
+/* ---------------- INDEX RAIL (signature nav) ---------------- */
+.rail{
+  position:fixed; left:40px; top:50%; transform:translateY(-50%); z-index:90;
+  display:flex; flex-direction:column; gap:22px;
+  opacity:0; pointer-events:none; transition:opacity .4s ease;
+}
+.rail.visible{opacity:1; pointer-events:auto;}
+.rail a{
+  display:flex; align-items:center; gap:10px; font-size:11px; font-weight:700;
+  color:var(--body-l); letter-spacing:.05em;
+}
+.rail .tick{width:16px; height:1px; background:var(--line-l); transition:width .25s, background .25s;}
+.rail a:hover .tick, .rail a.active .tick{width:30px; background:var(--magenta);}
+.rail a.active{color:var(--ink);}
+.rail-dark a{color:var(--body-d);}
+.rail-dark .tick{background:var(--line-d);}
+.rail-dark a.active{color:var(--white);}
+@media (max-width:1240px){ .rail{display:none;} }
+
+/* ---------------- HERO ---------------- */
+.hero{
+  background:var(--ink); color:var(--white); min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden; padding:140px 0 90px;
+}
+.hero-mesh{
+  position:absolute; inset:0; opacity:0.9;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(180,83,164,0.35), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 100% 85%, rgba(100,99,167,0.35), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 95%, rgba(85,48,126,0.4), transparent 60%);
+}
+.hero-dots{
+  position:absolute; top:0; right:0; width:46%; height:100%;
+  background-image: radial-gradient(rgba(201,192,214,0.35) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(to left, black, transparent 85%);
+          mask-image: linear-gradient(to left, black, transparent 85%);
+}
+.hero-inner{position:relative; z-index:2;}
+.hero .eyebrow{color:var(--magenta); margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+.hero .eyebrow::before{content:""; width:26px; height:1px; background:var(--magenta);}
+.hero h1{
+  font-family:var(--serif); font-weight:600; font-size:clamp(44px,7vw,84px); line-height:0.98;
+  letter-spacing:-0.01em; max-width:15ch; margin-bottom:28px;
+}
+.hero h1 em{font-style:italic; font-weight:500; color:transparent; -webkit-text-stroke:1.5px var(--white);}
+.hero-sub{font-size:17px; line-height:1.65; color:var(--body-d); max-width:520px; margin-bottom:44px;}
+.hero-ctas{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:700;
+  padding:16px 30px; letter-spacing:.02em; border:1px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--grad); color:var(--white);}
+.btn-primary svg{transition:transform .2s;}
+.btn-primary:hover svg{transform:translate(3px,-3px);}
+.btn-ghost-dark{border-color:rgba(255,255,255,0.3); color:var(--white);}
+.btn-ghost-dark:hover{background:rgba(255,255,255,0.08);}
+
+.hero-ticker{
+  position:relative; z-index:2; margin-top:90px; border-top:1px solid var(--line-d); padding-top:22px;
+  overflow:hidden; white-space:nowrap; width:100%; max-width:100%;
+}
+.ticker-track{display:inline-flex; gap:0; animation:ticker 32s linear infinite; width:max-content;}
+.ticker-track span{
+  font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.12em; color:var(--body-d);
+  text-transform:uppercase;
+}
+@keyframes ticker{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
+
+/* ---------------- SECTION HEADERS ---------------- */
+.sec{padding:130px 0;}
+.sec-head{margin-bottom:60px; max-width:640px;}
+.sec-head .eyebrow{color:var(--magenta); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.sec-head .eyebrow::before{content:""; width:26px; height:1px; background:var(--magenta);}
+.sec-head h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(32px,4vw,48px); line-height:1.05;
+  letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px;
+}
+.sec-head h2 i{font-style:italic; font-weight:500; color:var(--magenta);}
+.sec-head p{font-size:16px; line-height:1.7; color:var(--body-l);}
+
+/* ---------------- PROCESS ---------------- */
+.sec-processo{background:var(--paper);}
+.process-grid{
+  display:grid; grid-template-columns:repeat(6,1fr);
+  border-top:1px solid var(--line-l); border-left:1px solid var(--line-l);
+}
+.process-item{
+  border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l);
+  padding:32px 24px 32px; position:relative;
+}
+.process-item .pnum{
+  font-family:var(--serif); font-size:13px; color:var(--body-l); margin-bottom:24px; display:block;
+}
+.process-item .picn{
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  color:var(--roxo); margin-bottom:18px; font-size:20px;
+  border:1px solid var(--line-l);
+}
+.process-item:nth-child(3) .picn, .process-item:nth-child(4) .picn{color:var(--violeta);}
+.process-item:nth-child(5) .picn, .process-item:nth-child(6) .picn{color:var(--magenta);}
+.process-item h3{font-size:15.5px; font-weight:700; margin-bottom:10px; color:var(--ink);}
+.process-item p{font-size:13px; line-height:1.6; color:var(--body-l);}
+@media (max-width:980px){
+  .process-grid{grid-template-columns:repeat(3,1fr);}
+  .process-item{border-right:1px solid var(--line-l);}
+  .process-item:nth-child(3n){border-right:none;}
+}
+@media (max-width:620px){
+  .process-grid{grid-template-columns:repeat(2,1fr);}
+  .process-item{border-right:1px solid var(--line-l); padding:26px 16px 28px;}
+  .process-item:nth-child(2n){border-right:none;}
+  .process-item:nth-child(3n){border-right:1px solid var(--line-l);}
+}
+
+/* ---------------- PLANOS ---------------- */
+.sec-planos{background:var(--ink); color:var(--white);}
+.sec-planos .sec-head .eyebrow{color:var(--magenta);}
+.sec-planos .sec-head h2{color:var(--white);}
+.sec-planos .sec-head p{color:var(--body-d);}
+
+.plan-tabs{display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--line-d);}
+.plan-tab{
+  flex:1; min-width:150px; padding:20px 22px; border-right:1px solid var(--line-d);
+  cursor:pointer; transition:background .2s; position:relative;
+}
+.plan-tab:last-child{border-right:none;}
+.plan-tab .tnum{font-family:var(--serif); font-size:12px; color:var(--body-d); display:block; margin-bottom:6px;}
+.plan-tab .tname{font-size:14.5px; font-weight:700; color:var(--white);}
+.plan-tab .tprice{font-size:12.5px; font-weight:700; color:var(--body-d); margin-top:4px; display:block; letter-spacing:.02em; font-family:var(--serif);}
+.plan-tab:hover{background:rgba(255,255,255,0.05);}
+.plan-tab.active{background:var(--grad);}
+.plan-tab.active .tnum, .plan-tab.active .tprice{color:rgba(255,255,255,0.85);}
+
+.plan-panel{display:none; border:1px solid var(--line-d); border-top:none; padding:52px;}
+.plan-panel.active{display:block; animation:fadein .35s ease;}
+@keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+.plan-panel-top{
+  display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:44px;
+  flex-wrap:wrap; padding-bottom:36px; border-bottom:1px solid var(--line-d);
+}
+.plan-panel-top h3{font-family:var(--serif); font-weight:600; font-size:30px; margin-bottom:12px;}
+.plan-panel-top .tagline{font-size:14.5px; line-height:1.6; color:var(--body-d); max-width:440px;}
+.plan-price{text-align:right; flex:0 0 auto;}
+.plan-price .amount{font-family:var(--serif); font-weight:600; font-size:44px; color:var(--white); line-height:1;}
+.plan-price .amount sup{font-family:var(--sans); font-size:16px; font-weight:700; vertical-align:top; margin-right:2px;}
+.plan-price .period{font-size:12.5px; color:var(--body-d); letter-spacing:.03em; margin-top:4px;}
+
+.plan-body{display:grid; grid-template-columns:1.4fr 1fr; gap:52px;}
+.plan-inherits{
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--magenta);
+  margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--line-d);
+}
+.items-list{list-style:none;}
+.items-list li{
+  display:flex; align-items:flex-start; gap:12px; padding:10px 0; font-size:14px; color:var(--white);
+  border-bottom:1px solid var(--line-d);
+}
+.items-list li:first-child{padding-top:0;}
+.items-list li:last-child{border-bottom:none;}
+.items-list li svg{flex:0 0 auto; margin-top:3px; font-size:13px; color:var(--magenta);}
+
+.capture-block{border:1px solid var(--line-d); padding:26px 28px; height:fit-content;}
+.capture-block .cb-head{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+.capture-block svg{font-size:19px; color:var(--magenta);}
+.capture-block .cb-label{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--white);}
+.capture-block p{font-size:13px; line-height:1.7; color:var(--body-d);}
+
+@media (max-width:820px){
+  .plan-body{grid-template-columns:1fr; gap:32px;}
+  .plan-panel-top{align-items:flex-start;}
+  .plan-price{text-align:left;}
+}
+
+/* ---------------- PERSONALIZADAS ---------------- */
+.sec-custom{background:var(--paper);}
+.svc-grid{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line-l); border-left:1px solid var(--line-l);}
+.svc-cell{
+  border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l);
+  padding:24px 26px; display:flex; align-items:center; gap:16px;
+  transition:background .2s;
+}
+.svc-cell:hover{background:rgba(85,48,126,0.05);}
+.svc-cell svg{font-size:19px; color:var(--roxo); flex:0 0 auto;}
+.svc-cell:nth-child(4n+2) svg{color:var(--violeta);}
+.svc-cell:nth-child(4n+3) svg{color:var(--azul);}
+.svc-cell:nth-child(4n+4) svg{color:var(--magenta);}
+.svc-cell span{font-size:14px; font-weight:600; color:var(--ink);}
+@media (max-width:860px){ .svc-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:560px){ .svc-grid{grid-template-columns:1fr;} }
+
+/* ---------------- DIFERENCIAIS ---------------- */
+.sec-diff{background:var(--paper);}
+.diff-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:44px 60px;}
+.diff-item{display:flex; gap:22px;}
+.diff-icn{
+  width:46px; height:46px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-l); font-size:20px; color:var(--roxo);
+}
+.diff-item:nth-child(3n+2) .diff-icn{color:var(--violeta);}
+.diff-item:nth-child(3n+3) .diff-icn{color:var(--magenta);}
+.diff-item h3{font-size:16.5px; font-weight:700; margin-bottom:8px; color:var(--ink);}
+.diff-item p{font-size:13.5px; line-height:1.65; color:var(--body-l);}
+@media (max-width:760px){ .diff-grid{grid-template-columns:1fr; gap:34px;} }
+
+/* ---------------- CONTATO / CTA ---------------- */
+.sec-contact{background:var(--ink); color:var(--white); padding-bottom:0;}
+.contact-top{display:flex; justify-content:space-between; gap:60px; flex-wrap:wrap; padding-bottom:90px; border-bottom:1px solid var(--line-d);}
+.contact-top h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,58px); line-height:1.05; max-width:11ch;
+}
+.contact-top .ctxt{max-width:400px;}
+.contact-top .ctxt p{font-size:15px; color:var(--body-d); line-height:1.7; margin-bottom:30px;}
+
+.contact-grid{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line-d);}
+.contact-cell{
+  display:block; border-right:1px solid var(--line-d); padding:34px 26px;
+  transition:background .2s;
+}
+.contact-cell:hover{background:rgba(255,255,255,0.05);}
+.contact-cell:last-child{border-right:none;}
+.contact-cell svg{font-size:19px; color:var(--magenta); margin-bottom:16px; display:block;}
+.contact-cell .lbl{font-size:10.5px; font-weight:700; letter-spacing:.12em; color:var(--body-d); margin-bottom:6px;}
+.contact-cell .val{font-size:15px; font-weight:600; color:var(--white); word-break:break-word;}
+@media (max-width:860px){ .contact-grid{grid-template-columns:repeat(2,1fr);} .contact-cell:nth-child(2n){border-right:none;} }
+@media (max-width:560px){ .contact-grid{grid-template-columns:1fr;} .contact-cell{border-right:none !important; border-bottom:1px solid var(--line-d);} }
+
+.footer{display:flex; justify-content:space-between; align-items:center; padding:30px 0; margin-top:70px; flex-wrap:wrap; gap:16px;}
+.footer .logo-mark{height:22px;}
+.footer small{font-size:11px; color:var(--body-d); letter-spacing:.05em;}
+
+/* utility */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+@media (max-width:640px){
+  .wrap{padding:0 22px;}
+  .nav{padding:18px 22px;}
+  .sec{padding:88px 0;}
+  .hero{padding:120px 0 60px;}
+  .contact-top{padding-bottom:60px;}
+  .plan-panel{padding:32px 22px;}
+  .plan-panel-top{gap:20px;}
+}
+@media (max-width:480px){
+  .hero-ctas{flex-direction:column; align-items:flex-start; gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <img class="logo-mark" id="navLogo" src="data:image/png;base64,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" alt="Iter Mídia">
+  <div class="nav-links" id="navLinks">
+    <a href="#processo" data-sec="processo">Como trabalhamos</a><a href="#planos" data-sec="planos">Planos</a><a href="#personalizadas" data-sec="personalizadas">Sob medida</a><a href="#diferenciais" data-sec="diferenciais">Diferenciais</a><a href="#contato" data-sec="contato">Contato</a>
+  </div>
+  <a href="#contato" class="nav-cta">Iniciar conversa</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fechar menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  <a href="#processo" data-sec="processo">Como trabalhamos</a><a href="#planos" data-sec="planos">Planos</a><a href="#personalizadas" data-sec="personalizadas">Sob medida</a><a href="#diferenciais" data-sec="diferenciais">Diferenciais</a><a href="#contato" data-sec="contato">Contato</a>
+  <a href="#contato" class="mm-cta" id="mmCta">Iniciar conversa</a>
+</div>
+
+<div class="rail rail-dark" id="rail">
+  <a href="#hero" data-sec="hero"><span class="tick"></span>Início</a><a href="#processo" data-sec="processo"><span class="tick"></span>Como trabalhamos</a><a href="#planos" data-sec="planos"><span class="tick"></span>Planos</a><a href="#personalizadas" data-sec="personalizadas"><span class="tick"></span>Sob medida</a><a href="#diferenciais" data-sec="diferenciais"><span class="tick"></span>Diferenciais</a><a href="#contato" data-sec="contato"><span class="tick"></span>Contato</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-dots"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">MARKETING ESTRATÉGICO &amp; CONTEÚDO</div>
+    <h1>Organização antes<br>do <em>crescimento.</em></h1>
+    <p class="hero-sub">A Iter Mídia é uma agência de marketing estratégico, produção de conteúdo e posicionamento digital. Ajudamos empresas a crescerem através de planejamento, criatividade e organização.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5511942446006" target="_blank" rel="noopener" class="btn btn-primary">Vamos construir juntos <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      <a href="#processo" class="btn btn-ghost-dark">Como trabalhamos</a>
+    </div>
+  </div>
+  <div class="hero-ticker wrap">
+    <div class="ticker-track"><span style="padding-right:18px;margin-right:18px;border-right:1px solid var(--line-d);">DIAGNÓSTICO&nbsp;&nbsp;•&nbsp;&nbsp;PLANEJAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;PRODUÇÃO&nbsp;&nbsp;•&nbsp;&nbsp;REVISÃO&nbsp;&nbsp;•&nbsp;&nbsp;ENTREGA&nbsp;&nbsp;•&nbsp;&nbsp;ACOMPANHAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;</span><span style="padding-right:18px;margin-right:18px;border-right:1px solid var(--line-d);">DIAGNÓSTICO&nbsp;&nbsp;•&nbsp;&nbsp;PLANEJAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;PRODUÇÃO&nbsp;&nbsp;•&nbsp;&nbsp;REVISÃO&nbsp;&nbsp;•&nbsp;&nbsp;ENTREGA&nbsp;&nbsp;•&nbsp;&nbsp;ACOMPANHAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;</span><span style="padding-right:18px;margin-right:18px;border-right:1px solid var(--line-d);">DIAGNÓSTICO&nbsp;&nbsp;•&nbsp;&nbsp;PLANEJAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;PRODUÇÃO&nbsp;&nbsp;•&nbsp;&nbsp;REVISÃO&nbsp;&nbsp;•&nbsp;&nbsp;ENTREGA&nbsp;&nbsp;•&nbsp;&nbsp;ACOMPANHAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;</span><span style="padding-right:18px;margin-right:18px;border-right:1px solid var(--line-d);">DIAGNÓSTICO&nbsp;&nbsp;•&nbsp;&nbsp;PLANEJAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;PRODUÇÃO&nbsp;&nbsp;•&nbsp;&nbsp;REVISÃO&nbsp;&nbsp;•&nbsp;&nbsp;ENTREGA&nbsp;&nbsp;•&nbsp;&nbsp;ACOMPANHAMENTO&nbsp;&nbsp;•&nbsp;&nbsp;</span></div>
+  </div>
+</section>
+
+<!-- ============ PROCESSO ============ -->
+<section class="sec sec-processo" id="processo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Processo</div>
+      <h2>Como <i>trabalhamos</i></h2>
+      <p>Todos os clientes da Iter seguem um processo estruturado. Não trabalhamos de forma improvisada — cada entrega passa por diagnóstico, planejamento, produção, revisão, entrega e acompanhamento.</p>
+    </div>
+    <div class="process-grid">
+      
+        <div class="process-item reveal">
+          <span class="pnum">01</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+          <h3>Diagnóstico</h3>
+          <p>Entendemos o momento atual da empresa, o mercado e os objetivos antes de qualquer ação.</p>
+        </div>
+        <div class="process-item reveal">
+          <span class="pnum">02</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <h3>Planejamento</h3>
+          <p>Definimos estratégia, linguagem e calendário alinhados aos objetivos definidos.</p>
+        </div>
+        <div class="process-item reveal">
+          <span class="pnum">03</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+          <h3>Produção</h3>
+          <p>A equipe criativa executa o conteúdo com direção de arte e padrão de qualidade.</p>
+        </div>
+        <div class="process-item reveal">
+          <span class="pnum">04</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+          <h3>Revisão</h3>
+          <p>Cada entrega passa por revisão de qualidade antes de chegar até você.</p>
+        </div>
+        <div class="process-item reveal">
+          <span class="pnum">05</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></div>
+          <h3>Entrega</h3>
+          <p>O conteúdo é publicado e disponibilizado dentro do cronograma combinado.</p>
+        </div>
+        <div class="process-item reveal">
+          <span class="pnum">06</span>
+          <div class="picn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></div>
+          <h3>Acompanhamento</h3>
+          <p>Medimos resultados e ajustamos a rota continuamente com o cliente.</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANOS ============ -->
+<section class="sec sec-planos" id="planos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Planos</div>
+      <h2>Nossos <i>planos</i></h2>
+      <p>Cinco formas de trabalhar com a Iter, de acordo com o estágio e os objetivos da sua empresa.</p>
+    </div>
+    <div class="plan-tabs" id="planTabs">
+      
+        <div class="plan-tab active" data-plan="start">
+          <span class="tnum">01</span>
+          <span class="tname">Plano Start</span>
+          <span class="tprice">R$ 490/mês</span>
+        </div>
+        <div class="plan-tab" data-plan="essencial">
+          <span class="tnum">02</span>
+          <span class="tname">Plano Essencial</span>
+          <span class="tprice">R$ 790/mês</span>
+        </div>
+        <div class="plan-tab" data-plan="crescimento">
+          <span class="tnum">03</span>
+          <span class="tname">Plano Crescimento</span>
+          <span class="tprice">R$ 1.190/mês</span>
+        </div>
+        <div class="plan-tab" data-plan="estrategico">
+          <span class="tnum">04</span>
+          <span class="tname">Plano Estratégico</span>
+          <span class="tprice">R$ 1.790/mês</span>
+        </div>
+    </div>
+    <div id="planPanels">
+      
+        <div class="plan-panel active" data-panel="start">
+          <div class="plan-panel-top">
+            <div>
+              <h3>Plano Start</h3>
+              <p class="tagline">Ideal para empresas que estão iniciando sua presença digital.</p>
+            </div>
+            <div class="plan-price">
+              <div class="amount"><sup>R$</sup>490</div>
+              <div class="period">por mês</div>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div>
+              
+              <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Diagnóstico inicial simplificado</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Planejamento mensal</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Gestão do Instagram</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>4 posts (estáticos ou carrosséis)</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>2 Reels</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>8 Stories</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Legendas</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Calendário mensal</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Reunião mensal</span></li></ul>
+            </div>
+            <div class="capture-block">
+              <div class="cb-head"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="cb-label">Captação de conteúdo</span></div>
+              <p>Até 1 sessão de captação presencial por mês, exclusivamente para empresas localizadas em Cabreúva/SP, mediante agendamento.</p>
+            </div>
+          </div>
+        </div>
+        <div class="plan-panel" data-panel="essencial">
+          <div class="plan-panel-top">
+            <div>
+              <h3>Plano Essencial</h3>
+              <p class="tagline">Ideal para empresas que desejam crescer de forma consistente.</p>
+            </div>
+            <div class="plan-price">
+              <div class="amount"><sup>R$</sup>790</div>
+              <div class="period">por mês</div>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div>
+              <div class="plan-inherits">Tudo do Plano Start, mais:</div>
+              <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>8 posts</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>4 Reels</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>16 Stories</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Planejamento estratégico mensal</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Calendário editorial</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Relatório mensal</span></li></ul>
+            </div>
+            <div class="capture-block">
+              <div class="cb-head"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="cb-label">Captação de conteúdo</span></div>
+              <p>Até 2 sessões de captação presencial por mês, exclusivamente em Cabreúva/SP, mediante agendamento.</p>
+            </div>
+          </div>
+        </div>
+        <div class="plan-panel" data-panel="crescimento">
+          <div class="plan-panel-top">
+            <div>
+              <h3>Plano Crescimento</h3>
+              <p class="tagline">Ideal para empresas que desejam utilizar o marketing como ferramenta de crescimento.</p>
+            </div>
+            <div class="plan-price">
+              <div class="amount"><sup>R$</sup>1.190</div>
+              <div class="period">por mês</div>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div>
+              <div class="plan-inherits">Tudo do Plano Essencial, mais:</div>
+              <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>12 posts</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>8 Reels</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>24 Stories</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Planejamento estratégico contínuo</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Google Meu Negócio (quando aplicável)</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Reuniões quinzenais</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Relatórios completos</span></li></ul>
+            </div>
+            <div class="capture-block">
+              <div class="cb-head"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="cb-label">Captação de conteúdo</span></div>
+              <p>Até 4 sessões de captação presencial por mês, exclusivamente em Cabreúva/SP, mediante agendamento.</p>
+            </div>
+          </div>
+        </div>
+        <div class="plan-panel" data-panel="estrategico">
+          <div class="plan-panel-top">
+            <div>
+              <h3>Plano Estratégico</h3>
+              <p class="tagline">A Iter atua praticamente como o departamento de marketing da empresa.</p>
+            </div>
+            <div class="plan-price">
+              <div class="amount"><sup>R$</sup>1.790</div>
+              <div class="period">por mês</div>
+            </div>
+          </div>
+          <div class="plan-body">
+            <div>
+              <div class="plan-inherits">Tudo do Plano Crescimento, mais:</div>
+              <ul class="items-list"><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>16 posts</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>12 Reels</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Até 40 Stories</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Campanhas</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Consultoria estratégica</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Prioridade na produção</span></li><li><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Acompanhamento próximo</span></li></ul>
+            </div>
+            <div class="capture-block">
+              <div class="cb-head"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="cb-label">Captação de conteúdo</span></div>
+              <p>Captações presenciais recorrentes em Cabreúva/SP, conforme planejamento mensal e necessidade da estratégia (sem limite rígido de sessões, desde que previamente agendadas e compatíveis com a capacidade operacional da equipe).</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONALIZADAS ============ -->
+<section class="sec sec-custom" id="personalizadas">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Sob medida</div>
+      <h2>Soluções <i>personalizadas</i></h2>
+      <p>Nem todas as empresas possuem as mesmas necessidades. Por isso, além dos planos de gestão de redes sociais, a Iter Mídia também desenvolve projetos personalizados, construídos conforme os objetivos de cada empresa.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Diagnóstico Empresarial</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg><span>Planejamento Estratégico</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg><span>Sites</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span>Landing Pages</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg><span>Identidade Visual</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg><span>Logotipo</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Google Meu Negócio</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg><span>Gestão de Tráfego</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg><span>Produção de Vídeos</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Consultorias</span></div><div class="svc-cell reveal"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span>Materiais Institucionais</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIFERENCIAIS ============ -->
+<section class="sec sec-diff" id="diferenciais">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Diferenciais</div>
+      <h2>Por que escolher a <i>Iter Mídia?</i></h2>
+      <p>Não vendemos quantidade de posts. Trabalhamos com planejamento, organização e estratégia por trás de cada entrega.</p>
+    </div>
+    <div class="diff-grid">
+      
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></div>
+          <div><h3>Planejamento</h3><p>Toda ação parte de um plano — nada é feito de forma improvisada.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div>
+          <div><h3>Organização</h3><p>Processos definidos garantem previsibilidade nas entregas.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <div><h3>Estratégia</h3><p>Decisões orientadas por objetivos, não apenas por tendências.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
+          <div><h3>Produção de Conteúdo</h3><p>Qualidade criativa com direção de arte em cada entrega.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+          <div><h3>Acompanhamento</h3><p>Resultados medidos e apresentados com transparência.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+          <div><h3>Comunicação Constante</h3><p>Relacionamento próximo, sem ruídos ao longo do processo.</p></div>
+        </div>
+        <div class="diff-item reveal">
+          <div class="diff-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></div>
+          <div><h3>Melhoria Contínua</h3><p>Estratégias revisadas e aprimoradas a cada ciclo.</p></div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="sec sec-contact" id="contato">
+  <div class="wrap">
+    <div class="contact-top">
+      <h2 class="reveal">Vamos construir juntos?</h2>
+      <div class="ctxt reveal">
+        <p>Cada empresa possui necessidades diferentes. Por isso, antes de qualquer contratação, a Iter Mídia realiza uma conversa para compreender seus objetivos e indicar a solução mais adequada.</p>
+        <a href="https://wa.me/5511942446006" target="_blank" rel="noopener" class="btn btn-primary">Agendar conversa <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-cell" href="tel:+5511942446006" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><div class="lbl">TELEFONE</div><div class="val">(11) 94244-6006</div></a><a class="contact-cell" href="https://wa.me/5511942446006" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg><div class="lbl">WHATSAPP</div><div class="val">(11) 94244-6006</div></a><a class="contact-cell" href="https://instagram.com/_itermidia" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg><div class="lbl">INSTAGRAM</div><div class="val">@_itermidia</div></a><a class="contact-cell" href="mailto:atendimento@itermidia.com.br" target="_blank" rel="noopener"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><div class="lbl">E-MAIL</div><div class="val">atendimento@itermidia.com.br</div></a>
+    </div>
+    <div class="footer">
+      <img class="logo-mark" src="data:image/png;base64,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" alt="Iter Mídia">
+      <small>© Iter Mídia — Guia de Soluções</small>
+    </div>
+  </div>
+</section>
+
+<script>
+const nav = document.getElementById('nav');
+const rail = document.getElementById('rail');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  rail.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const railLinks = document.querySelectorAll('.rail a');
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === id));
+      railLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === id));
+    }
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+sections.forEach(s => spy.observe(s));
+
+const reveal = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+
+const tabs = document.querySelectorAll('.plan-tab');
+const panels = document.querySelectorAll('.plan-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const id = tab.dataset.plan;
+    tabs.forEach(t => t.classList.toggle('active', t === tab));
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+  });
+});
+
+// Mobile menu
+const mobileMenu = document.getElementById('mobileMenu');
+const navBurger = document.getElementById('navBurger');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+function openMenu(){ mobileMenu.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu(){ mobileMenu.classList.remove('open'); document.body.style.overflow=''; }
+navBurger.addEventListener('click', openMenu);
+mobileMenuClose.addEventListener('click', closeMenu);
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+</script>
+</body>
+</html>

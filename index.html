@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Michelin</title>
+<meta name="description" content="Daniel Michelin — Marketing e Contabilidade. Aprendizado constante, disciplina e responsabilidade como base de uma carreira sólida.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --forest-deep:#0F2A1D; --forest:#20402F; --sage:#5C7A63; --brass:#AD8332; --brass-light:#C9A354;
+  --paper:#EDEAE0; --line-l:#D7D1C0;
+  --ink:#12160F; --ink-2:#1B2318;
+  --body-l:#54533F; --body-d:#C7C7B6;
+  --white:#FFFFFF;
+  --line-d:rgba(255,255,255,0.14);
+  --grad: linear-gradient(115deg, var(--forest-deep) 0%, var(--forest) 55%, var(--brass) 100%);
+  --serif:'Newsreader', serif; --sans:'Manrope', sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper);
+  -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+.eyebrow{font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+section{position:relative;}
+::selection{background:var(--brass); color:var(--ink);}
+a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:3px;}
+
+/* ---------------- NAV ---------------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 40px;
+  transition:background .3s ease, padding .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{ background:rgba(15,26,20,0.88); backdrop-filter:blur(10px); padding:14px 40px; border-color:var(--line-d);}
+.nav .mark{
+  font-family:var(--serif); font-weight:600; font-size:19px; color:var(--white); letter-spacing:.01em;
+}
+.nav .mark em{font-style:italic; color:var(--brass-light);}
+.nav-links{display:flex; align-items:center; gap:34px;}
+.nav-links a{
+  font-size:13px; font-weight:600; color:var(--body-d); letter-spacing:.02em;
+  position:relative; padding:4px 0;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.active{color:var(--white);}
+.nav-links a.active::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--brass-light);
+}
+.nav-cta{
+  border:1px solid rgba(255,255,255,0.35); color:var(--white); font-size:12.5px; font-weight:700;
+  padding:10px 20px; letter-spacing:.03em; transition:background .2s, border-color .2s;
+}
+.nav-cta:hover{background:var(--white); color:var(--ink);}
+.nav-burger{
+  display:none; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35);
+  align-items:center; justify-content:center; color:var(--white); cursor:pointer; background:none;
+  flex:0 0 auto;
+}
+@media (max-width:860px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .nav-burger{display:flex;}
+}
+
+.mobile-menu{
+  position:fixed; inset:0; background:var(--ink); z-index:99;
+  display:flex; flex-direction:column; justify-content:center; padding:40px;
+  transform:translateY(-100%); transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{
+  font-family:var(--serif); font-size:30px; font-weight:600; color:var(--white);
+  padding:14px 0; border-bottom:1px solid var(--line-d);
+}
+.mobile-menu .mm-cta{
+  margin-top:30px; align-self:flex-start; font-family:var(--sans); font-size:13px; font-weight:700;
+  background:var(--grad); color:var(--white); padding:16px 30px; border:none;
+}
+.mobile-menu-close{
+  position:absolute; top:22px; right:22px; width:40px; height:40px; border:1px solid rgba(255,255,255,0.35);
+  display:flex; align-items:center; justify-content:center; color:var(--white); background:none; cursor:pointer;
+}
+
+/* ---------------- INDEX RAIL ---------------- */
+.rail{
+  position:fixed; left:40px; top:50%; transform:translateY(-50%); z-index:90;
+  display:flex; flex-direction:column; gap:22px;
+  opacity:0; pointer-events:none; transition:opacity .4s ease;
+}
+.rail.visible{opacity:1; pointer-events:auto;}
+.rail a{
+  display:flex; align-items:center; gap:10px; font-size:11px; font-weight:700;
+  color:var(--body-l); letter-spacing:.05em;
+}
+.rail .tick{width:16px; height:1px; background:var(--line-l); transition:width .25s, background .25s;}
+.rail a:hover .tick, .rail a.active .tick{width:30px; background:var(--brass);}
+.rail a.active{color:var(--ink);}
+.rail-dark a{color:var(--body-d);}
+.rail-dark .tick{background:var(--line-d);}
+.rail-dark a.active{color:var(--white);}
+@media (max-width:1240px){ .rail{display:none;} }
+
+/* ---------------- HERO ---------------- */
+.hero{
+  background:var(--ink); color:var(--white); min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden; padding:140px 0 90px;
+}
+.hero-mesh{
+  position:absolute; inset:0; opacity:0.9;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(173,131,50,0.28), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 100% 85%, rgba(92,122,99,0.30), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 95%, rgba(15,42,29,0.55), transparent 60%);
+}
+.hero-lines{
+  position:absolute; top:0; right:0; width:46%; height:100%;
+  background-image: repeating-linear-gradient(115deg, rgba(201,163,84,0.10), rgba(201,163,84,0.10) 1px, transparent 1px, transparent 34px);
+  -webkit-mask-image: linear-gradient(to left, black, transparent 85%);
+          mask-image: linear-gradient(to left, black, transparent 85%);
+}
+.hero-inner{position:relative; z-index:2;}
+.hero .eyebrow{color:var(--brass-light); margin-bottom:22px; display:flex; align-items:center; gap:10px;}
+.hero .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass-light);}
+.hero h1{
+  font-family:var(--serif); font-weight:600; font-size:clamp(40px,6.6vw,78px); line-height:1.05;
+  letter-spacing:-0.01em; max-width:16ch; margin-bottom:28px;
+}
+.hero h1 em{font-style:italic; font-weight:500; color:var(--brass-light);}
+.hero-sub{font-size:17px; line-height:1.7; color:var(--body-d); max-width:540px; margin-bottom:44px;}
+.hero-ctas{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:700;
+  padding:16px 30px; letter-spacing:.02em; border:1px solid transparent; cursor:pointer;
+}
+.btn-primary{background:var(--grad); color:var(--white);}
+.btn-primary svg{transition:transform .2s;}
+.btn-primary:hover svg{transform:translate(3px,-3px);}
+.btn-ghost-dark{border-color:rgba(255,255,255,0.3); color:var(--white);}
+.btn-ghost-dark:hover{background:rgba(255,255,255,0.08);}
+
+.hero-ticker{
+  position:relative; z-index:2; margin-top:90px; border-top:1px solid var(--line-d); padding-top:22px;
+  overflow:hidden; white-space:nowrap; width:100%; max-width:100%;
+}
+.ticker-track{display:inline-flex; gap:0; animation:ticker 34s linear infinite; width:max-content;}
+.ticker-track span{
+  font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.12em; color:var(--body-d);
+  text-transform:uppercase; padding-right:18px; margin-right:18px; border-right:1px solid var(--line-d);
+}
+@keyframes ticker{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
+
+/* ---------------- SECTION HEADERS ---------------- */
+.sec{padding:130px 0;}
+.sec-head{margin-bottom:60px; max-width:660px;}
+.sec-head .eyebrow{color:var(--brass); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.sec-head .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass);}
+.sec-head h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(32px,4vw,48px); line-height:1.08;
+  letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px;
+}
+.sec-head h2 i{font-style:italic; font-weight:500; color:var(--forest);}
+.sec-head p{font-size:16px; line-height:1.75; color:var(--body-l);}
+.sec-dark .sec-head .eyebrow{color:var(--brass-light);}
+.sec-dark .sec-head h2{color:var(--white);}
+.sec-dark .sec-head h2 i{color:var(--brass-light);}
+.sec-dark .sec-head p{color:var(--body-d);}
+
+/* ---------------- SOBRE ---------------- */
+.sec-sobre{background:var(--paper);}
+.sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+.sobre-quote{
+  font-family:var(--serif); font-style:italic; font-size:22px; line-height:1.5; color:var(--ink);
+  border-left:2px solid var(--brass); padding-left:26px;
+}
+.sobre-body p{font-size:14.5px; line-height:1.85; color:var(--body-l); margin-bottom:18px;}
+.sobre-body p:last-child{margin-bottom:0;}
+.sobre-body strong{color:var(--ink);}
+.sobre-closing{
+  margin-top:28px; padding-top:24px; border-top:1px solid var(--line-l);
+  font-family:var(--serif); font-style:italic; font-size:15px; color:var(--forest);
+}
+@media (max-width:860px){ .sobre-grid{grid-template-columns:1fr; gap:36px;} }
+
+/* ---------------- PILARES ---------------- */
+.pilares-grid{
+  display:grid; grid-template-columns:repeat(5,1fr);
+  border-top:1px solid var(--line-l); border-left:1px solid var(--line-l); margin-top:70px;
+}
+.pilar-item{
+  border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l);
+  padding:30px 22px 32px;
+}
+.pilar-icn{
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  color:var(--forest); margin-bottom:18px; font-size:19px;
+  border:1px solid var(--line-l);
+}
+.pilar-item:nth-child(5n+2) .pilar-icn{color:var(--brass);}
+.pilar-item:nth-child(5n+3) .pilar-icn{color:var(--sage);}
+.pilar-item:nth-child(5n+4) .pilar-icn{color:var(--forest);}
+.pilar-item:nth-child(5n+5) .pilar-icn{color:var(--brass);}
+.pilar-item h3{font-size:14.5px; font-weight:700; margin-bottom:8px; color:var(--ink);}
+.pilar-item p{font-size:12.5px; line-height:1.6; color:var(--body-l);}
+@media (max-width:980px){
+  .pilares-grid{grid-template-columns:repeat(3,1fr);}
+  .pilar-item{border-right:1px solid var(--line-l);}
+  .pilar-item:nth-child(3n){border-right:none;}
+}
+@media (max-width:620px){
+  .pilares-grid{grid-template-columns:repeat(2,1fr);}
+  .pilar-item{border-right:1px solid var(--line-l); padding:24px 16px 26px;}
+  .pilar-item:nth-child(2n){border-right:none;}
+  .pilar-item:nth-child(3n){border-right:1px solid var(--line-l);}
+}
+
+/* ---------------- EMPRESAS ---------------- */
+.sec-empresas{background:var(--ink); color:var(--white);}
+.empresas-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line-d);}
+.empresa-card{
+  padding:52px 44px; border-right:1px solid var(--line-d); transition:background .25s ease;
+}
+.empresa-card:last-child{border-right:none;}
+.empresa-card:hover{background:rgba(255,255,255,0.04);}
+.empresa-num{font-family:var(--serif); font-size:13px; color:var(--body-d); display:block; margin-bottom:26px;}
+.empresa-name{font-family:var(--serif); font-weight:600; font-size:28px; margin-bottom:14px; color:var(--white);}
+.empresa-tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--brass-light); margin-bottom:18px;}
+.empresa-desc{font-size:14.5px; line-height:1.75; color:var(--body-d); margin-bottom:34px; max-width:38ch;}
+.empresa-link{
+  display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700;
+  color:var(--white); padding:14px 26px; border:1px solid rgba(255,255,255,0.35); letter-spacing:.02em;
+  transition:background .2s, border-color .2s;
+}
+.empresa-link svg{transition:transform .2s;}
+.empresa-link:hover{background:var(--white); color:var(--ink);}
+.empresa-link:hover svg{transform:translate(3px,-3px);}
+@media (max-width:760px){
+  .empresas-grid{grid-template-columns:1fr;}
+  .empresa-card{border-right:none; border-bottom:1px solid var(--line-d);}
+  .empresa-card:last-child{border-bottom:none;}
+}
+
+/* ---------------- CONVICÇÕES ---------------- */
+.sec-convicoes{background:var(--paper);}
+.conv-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:44px 60px;}
+.conv-item{display:flex; gap:22px;}
+.conv-icn{
+  width:46px; height:46px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-l); font-size:20px; color:var(--forest);
+}
+.conv-item:nth-child(4n+2) .conv-icn{color:var(--brass);}
+.conv-item:nth-child(4n+3) .conv-icn{color:var(--sage);}
+.conv-item:nth-child(4n+4) .conv-icn{color:var(--brass);}
+.conv-item h3{font-size:16.5px; font-weight:700; margin-bottom:8px; color:var(--ink);}
+.conv-item p{font-size:13.5px; line-height:1.7; color:var(--body-l);}
+@media (max-width:760px){ .conv-grid{grid-template-columns:1fr; gap:34px;} }
+
+/* ---------------- FORMAÇÃO ---------------- */
+.sec-formacao{background:var(--ink); color:var(--white);}
+.form-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:60px; align-items:center;}
+.form-icn{
+  width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-d); color:var(--brass-light); font-size:26px; margin-bottom:22px;
+}
+.form-grid h3{font-family:var(--serif); font-weight:600; font-size:28px; margin-bottom:14px; color:var(--white);}
+.form-status{
+  display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--brass-light); margin-bottom:16px;
+}
+.form-status::before{content:""; width:7px; height:7px; background:var(--brass-light); border-radius:50%;}
+.form-detail{
+  font-size:13.5px; line-height:1.85; color:var(--body-d); background:rgba(255,255,255,0.04);
+  border:1px solid var(--line-d); padding:32px;
+}
+.form-detail p+p{margin-top:14px;}
+@media (max-width:860px){ .form-grid{grid-template-columns:1fr; gap:32px;} }
+
+/* ---------------- CONTATO ---------------- */
+.sec-contato{background:var(--paper); padding-bottom:0;}
+.contato-top{display:flex; justify-content:space-between; gap:60px; flex-wrap:wrap; padding-bottom:60px;}
+.contato-top h2{
+  font-family:var(--serif); font-weight:600; font-size:clamp(32px,5vw,52px); line-height:1.08; max-width:12ch; color:var(--ink);
+}
+.contato-top .ctxt{max-width:400px;}
+.contato-top .ctxt p{font-size:15px; color:var(--body-l); line-height:1.75;}
+
+.contato-grid{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line-l); border-left:1px solid var(--line-l);}
+.contato-cell{
+  display:block; border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l); padding:34px 26px;
+  transition:background .2s;
+}
+.contato-cell:hover{background:rgba(32,64,47,0.06);}
+.contato-cell svg{font-size:19px; color:var(--forest); margin-bottom:16px; display:block;}
+.contato-cell .lbl{font-size:10.5px; font-weight:700; letter-spacing:.12em; color:var(--body-l); margin-bottom:6px;}
+.contato-cell .val{font-size:15px; font-weight:600; color:var(--ink); word-break:break-word;}
+@media (max-width:760px){ .contato-grid{grid-template-columns:1fr;} }
+
+.footer{
+  display:flex; justify-content:space-between; align-items:center; padding:30px 0; margin-top:0;
+  flex-wrap:wrap; gap:16px; border-top:1px solid var(--line-l);
+}
+.footer .mark{font-family:var(--serif); font-size:16px; color:var(--ink);}
+.footer .mark em{font-style:italic; color:var(--forest);}
+.footer small{font-size:11px; color:var(--body-l); letter-spacing:.05em;}
+
+/* utility */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+@media (max-width:640px){
+  .wrap{padding:0 22px;}
+  .nav{padding:18px 22px;}
+  .sec{padding:88px 0;}
+  .hero{padding:120px 0 60px;}
+  .contato-top{padding-bottom:40px;}
+  .empresa-card{padding:40px 26px;}
+}
+@media (max-width:480px){
+  .hero-ctas{flex-direction:column; align-items:flex-start; gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <span class="mark">Daniel <em>Michelin</em></span>
+  <div class="nav-links" id="navLinks">
+    <a href="#sobre" data-sec="sobre">Sobre</a><a href="#empresas" data-sec="empresas">Empresas</a><a href="#convicoes" data-sec="convicoes">Convicções</a><a href="#formacao" data-sec="formacao">Formação</a><a href="#contato" data-sec="contato">Contato</a>
+  </div>
+  <a href="#contato" class="nav-cta">Contato</a>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fechar menu"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  <a href="#sobre" data-sec="sobre">Sobre</a><a href="#empresas" data-sec="empresas">Empresas</a><a href="#convicoes" data-sec="convicoes">Convicções</a><a href="#formacao" data-sec="formacao">Formação</a><a href="#contato" data-sec="contato">Contato</a>
+  <a href="#contato" class="mm-cta" id="mmCta">Falar comigo</a>
+</div>
+
+<div class="rail rail-dark" id="rail">
+  <a href="#hero" data-sec="hero"><span class="tick"></span>Início</a><a href="#sobre" data-sec="sobre"><span class="tick"></span>Sobre</a><a href="#empresas" data-sec="empresas"><span class="tick"></span>Empresas</a><a href="#convicoes" data-sec="convicoes"><span class="tick"></span>Convicções</a><a href="#formacao" data-sec="formacao"><span class="tick"></span>Formação</a><a href="#contato" data-sec="contato"><span class="tick"></span>Contato</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-lines"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">DANIEL MICHELIN</div>
+    <h1>Uma carreira construída com <em>constância</em>, disciplina e propósito.</h1>
+    <p class="hero-sub">Tenho 17 anos e atuo nas áreas de Marketing e Contabilidade, participando do desenvolvimento de empresas por meio de estratégia, organização e gestão — guiado por convicções que não mudam com o resultado do dia.</p>
+    <div class="hero-ctas">
+      <a href="#sobre" class="btn btn-primary">Conhecer minha história <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      <a href="#empresas" class="btn btn-ghost-dark">Onde trabalho</a>
+    </div>
+  </div>
+  <div class="hero-ticker wrap">
+    <div class="ticker-track">
+      <span>APRENDIZADO CONSTANTE&nbsp;&nbsp;•&nbsp;&nbsp;DISCIPLINA&nbsp;&nbsp;•&nbsp;&nbsp;RESPONSABILIDADE&nbsp;&nbsp;•&nbsp;&nbsp;INTEGRIDADE&nbsp;&nbsp;•&nbsp;&nbsp;EXCELÊNCIA&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>APRENDIZADO CONSTANTE&nbsp;&nbsp;•&nbsp;&nbsp;DISCIPLINA&nbsp;&nbsp;•&nbsp;&nbsp;RESPONSABILIDADE&nbsp;&nbsp;•&nbsp;&nbsp;INTEGRIDADE&nbsp;&nbsp;•&nbsp;&nbsp;EXCELÊNCIA&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>APRENDIZADO CONSTANTE&nbsp;&nbsp;•&nbsp;&nbsp;DISCIPLINA&nbsp;&nbsp;•&nbsp;&nbsp;RESPONSABILIDADE&nbsp;&nbsp;•&nbsp;&nbsp;INTEGRIDADE&nbsp;&nbsp;•&nbsp;&nbsp;EXCELÊNCIA&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>APRENDIZADO CONSTANTE&nbsp;&nbsp;•&nbsp;&nbsp;DISCIPLINA&nbsp;&nbsp;•&nbsp;&nbsp;RESPONSABILIDADE&nbsp;&nbsp;•&nbsp;&nbsp;INTEGRIDADE&nbsp;&nbsp;•&nbsp;&nbsp;EXCELÊNCIA&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section class="sec sec-sobre" id="sobre">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Quem sou eu</div>
+      <h2>Sobre <i>mim</i></h2>
+    </div>
+    <div class="sobre-grid">
+      <div class="reveal">
+        <p class="sobre-quote">"Acredito que uma carreira sólida é construída por meio de aprendizado constante, disciplina e responsabilidade."</p>
+      </div>
+      <div class="sobre-body reveal">
+        <p>São esses princípios que orientam minha trajetória pessoal e profissional. Atualmente atuo nas áreas de <strong>Marketing</strong> e <strong>Contabilidade</strong>, participando do desenvolvimento de empresas por meio de estratégias de comunicação, organização de processos e gestão.</p>
+        <p>Em breve iniciarei minha graduação em Contabilidade, com o objetivo de me especializar em Economia e aprofundar meus conhecimentos em Finanças, Gestão Empresarial e desenvolvimento de negócios.</p>
+        <p>Sou cristão reformado e procuro levar essa convicção para todas as áreas da minha vida. Acredito que integridade, compromisso e excelência não são apenas valores profissionais, mas princípios que devem orientar a maneira como trabalhamos, tomamos decisões e nos relacionamos com as pessoas.</p>
+        <p>Tenho grande interesse pelo universo dos negócios e busco compreender como empresas crescem, como mercados se desenvolvem e como boas decisões podem gerar resultados consistentes. Por isso, mantenho uma rotina constante de estudos voltada à Economia, Finanças, Marketing, tecnologia e gestão, sempre procurando transformar conhecimento em aplicação prática.</p>
+        <p>Meu objetivo é construir uma carreira de longo prazo, desenvolvendo competência técnica, visão estratégica e capacidade de liderança para assumir desafios cada vez maiores. Acredito que grandes resultados são consequência de constância, preparo e disposição para aprender continuamente.</p>
+        <p class="sobre-closing">Nesta página você encontrará um pouco mais sobre minha trajetória, as empresas das quais faço parte e os projetos em que atuo. Seja bem-vindo.</p>
+      </div>
+    </div>
+
+    <div class="pilares-grid">
+      <div class="pilar-item reveal">
+        <div class="pilar-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+        <h3>Aprendizado constante</h3>
+        <p>Estudo Economia, Finanças, Marketing, tecnologia e gestão como rotina, não como exceção.</p>
+      </div>
+      <div class="pilar-item reveal">
+        <div class="pilar-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+        <h3>Disciplina</h3>
+        <p>Constância no dia a dia como base para qualquer resultado consistente no longo prazo.</p>
+      </div>
+      <div class="pilar-item reveal">
+        <div class="pilar-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+        <h3>Responsabilidade</h3>
+        <p>Compromisso com o que assumo, dentro e fora do ambiente de trabalho.</p>
+      </div>
+      <div class="pilar-item reveal">
+        <div class="pilar-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></div>
+        <h3>Integridade</h3>
+        <p>Decisões e relações orientadas pela minha fé cristã reformada, sem exceções de conveniência.</p>
+      </div>
+      <div class="pilar-item reveal">
+        <div class="pilar-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+        <h3>Excelência</h3>
+        <p>Padrão de qualidade como consequência de preparo, não como acaso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EMPRESAS ============ -->
+<section class="sec sec-empresas" id="empresas">
+  <div class="wrap">
+    <div class="sec-head sec-dark reveal">
+      <div class="eyebrow">Onde trabalho</div>
+      <h2>As empresas que <i>construo</i></h2>
+      <p>Atuo diretamente no desenvolvimento de duas empresas do Grupo Iter, cada uma com sua própria frente de atuação.</p>
+    </div>
+    <div class="empresas-grid reveal">
+      <div class="empresa-card">
+        <span class="empresa-num">01</span>
+        <div class="empresa-tag">Marketing &amp; Conteúdo</div>
+        <div class="empresa-name">Iter Mídia</div>
+        <p class="empresa-desc">Marketing estratégico, produção de conteúdo e posicionamento digital para empresas que querem crescer com organização.</p>
+        <a href="empresas/marketing.html" class="empresa-link">Conhecer a Iter Mídia <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+      <div class="empresa-card">
+        <span class="empresa-num">02</span>
+        <div class="empresa-tag">Contábil &amp; Financeiro</div>
+        <div class="empresa-name">Iter Gestão Contábil</div>
+        <p class="empresa-desc">Contábil, fiscal, trabalhista, legalização e BPO financeiro — a gestão empresarial por trás dos números.</p>
+        <a href="empresas/contabilidade.html" class="empresa-link">Conhecer a Iter Contábil <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONVICÇÕES ============ -->
+<section class="sec sec-convicoes" id="convicoes">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Convicções</div>
+      <h2>No que <i>acredito</i></h2>
+      <p>Não trato essas convicções como interesses à parte — elas são a base de como decido, trabalho e me relaciono.</p>
+    </div>
+    <div class="conv-grid">
+      <div class="conv-item reveal">
+        <div class="conv-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="5" r="3"></circle><line x1="12" y1="22" x2="12" y2="8"></line><path d="M5 12H2a10 10 0 0 0 20 0h-3"></path></svg></div>
+        <h3>Fé como base de caráter</h3>
+        <p>Sou cristão reformado. Procuro levar essa convicção a todas as áreas da vida: integridade, compromisso e excelência não são só valores profissionais, mas princípios que orientam decisões e relações.</p>
+      </div>
+      <div class="conv-item reveal">
+        <div class="conv-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+        <h3>Interesse genuíno por negócios</h3>
+        <p>Busco compreender como empresas crescem, como mercados se desenvolvem e como boas decisões geram resultados consistentes ao longo do tempo.</p>
+      </div>
+      <div class="conv-item reveal">
+        <div class="conv-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+        <h3>Rotina constante de estudos</h3>
+        <p>Mantenho estudo voltado à Economia, Finanças, Marketing, tecnologia e gestão — sempre buscando transformar conhecimento em aplicação prática.</p>
+      </div>
+      <div class="conv-item reveal">
+        <div class="conv-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+        <h3>Visão de longo prazo</h3>
+        <p>Meu objetivo é construir competência técnica, visão estratégica e capacidade de liderança para assumir desafios cada vez maiores.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMAÇÃO ============ -->
+<section class="sec sec-formacao" id="formacao">
+  <div class="wrap">
+    <div class="form-grid">
+      <div class="reveal">
+        <div class="form-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
+        <div class="form-status">Em andamento</div>
+        <h3>Formação</h3>
+      </div>
+      <div class="form-detail reveal">
+        <p>Em breve iniciarei minha graduação em <strong style="color:var(--white)">Contabilidade</strong>, com o objetivo de me especializar em <strong style="color:var(--white)">Economia</strong> e aprofundar meus conhecimentos em Finanças, Gestão Empresarial e desenvolvimento de negócios.</p>
+        <p>É uma base técnica pensada para sustentar, no longo prazo, a atuação que já desenvolvo hoje em Marketing e Contabilidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="sec sec-contato" id="contato">
+  <div class="wrap">
+    <div class="contato-top reveal">
+      <h2>Vamos conversar</h2>
+      <div class="ctxt">
+        <p>Seja para falar sobre as empresas do Grupo Iter, oportunidades ou só trocar uma ideia sobre negócios — os canais abaixo estão abertos.</p>
+      </div>
+    </div>
+    <div class="contato-grid reveal">
+      <a href="https://wa.me/5511942446006" target="_blank" rel="noopener" class="contato-cell">
+        <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <div class="lbl">WHATSAPP</div>
+        <div class="val">(11) 94244-6006</div>
+      </a>
+      <a href="https://www.instagram.com/daniel_rmichelin" target="_blank" rel="noopener" class="contato-cell">
+        <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="0" ry="0"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
+        <div class="lbl">INSTAGRAM</div>
+        <div class="val">@daniel_rmichelin</div>
+      </a>
+      <a href="https://www.linkedin.com/in/daniel-michelin-8a2242277" target="_blank" rel="noopener" class="contato-cell">
+        <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        <div class="lbl">LINKEDIN</div>
+        <div class="val">Daniel Michelin</div>
+      </a>
+    </div>
+    <div class="footer">
+      <span class="mark">Daniel <em>Michelin</em></span>
+      <small>© 2026 Daniel Michelin. Todos os direitos reservados.</small>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  var rail = document.getElementById('rail');
+  var navBurger = document.getElementById('navBurger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var mobileMenuClose = document.getElementById('mobileMenuClose');
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a, .rail a, .mobile-menu a');
+
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 40){
+      nav.classList.add('scrolled');
+      rail.classList.add('visible');
+    } else {
+      nav.classList.remove('scrolled');
+      rail.classList.remove('visible');
+    }
+  });
+
+  navBurger.addEventListener('click', function(){ mobileMenu.classList.add('open'); });
+  mobileMenuClose.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var id = entry.target.getAttribute('id');
+        navLinks.forEach(function(link){
+          link.classList.toggle('active', link.getAttribute('data-sec') === id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  sections.forEach(function(s){ observer.observe(s); });
+
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(function(el){ revealObserver.observe(el); });
+})();
+</script>
+
+</body>
+</html>
