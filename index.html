@@ -26,7 +26,6 @@ body{
 }
 img{display:block; max-width:100%;}
 a{color:inherit; text-decoration:none;}
-.eyebrow{font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;}
 .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
 section{position:relative; scroll-margin-top:96px;}
 ::selection{background:var(--brass); color:var(--ink);}
@@ -128,16 +127,14 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
   -webkit-mask-image: linear-gradient(to left, black, transparent 85%);
           mask-image: linear-gradient(to left, black, transparent 85%);
 }
-.hero-inner{position:relative; z-index:2;}
-.hero .eyebrow{color:var(--brass-light); margin-bottom:22px; display:flex; align-items:center; gap:10px;}
-.hero .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass-light);}
+.hero-inner{position:relative; z-index:2; text-align:center; display:flex; flex-direction:column; align-items:center;}
 .hero h1{
   font-family:var(--serif); font-weight:600; font-size:clamp(40px,6.6vw,78px); line-height:1.05;
   letter-spacing:-0.01em; max-width:16ch; margin-bottom:28px;
 }
 .hero h1 em{font-style:italic; font-weight:500; color:var(--brass-light);}
 .hero-sub{font-size:17px; line-height:1.7; color:var(--body-d); max-width:540px; margin-bottom:44px;}
-.hero-ctas{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.hero-ctas{display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap;}
 .btn{
   display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:700;
   padding:16px 30px; letter-spacing:.02em; border:1px solid transparent; cursor:pointer;
@@ -162,16 +159,13 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 
 /* ---------------- SECTION HEADERS ---------------- */
 .sec{padding:130px 0;}
-.sec-head{margin-bottom:60px; max-width:660px;}
-.sec-head .eyebrow{color:var(--brass-ink); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
-.sec-head .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass);}
+.sec-head{margin:0 auto 60px; max-width:660px; text-align:center;}
 .sec-head h2{
   font-family:var(--serif); font-weight:600; font-size:clamp(32px,4vw,48px); line-height:1.08;
   letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px;
 }
 .sec-head h2 i{font-style:italic; font-weight:500; color:var(--forest);}
 .sec-head p{font-size:16px; line-height:1.75; color:var(--body-l);}
-.sec-dark .sec-head .eyebrow{color:var(--brass-light);}
 .sec-dark .sec-head h2{color:var(--white);}
 .sec-dark .sec-head h2 i{color:var(--brass-light);}
 .sec-dark .sec-head p{color:var(--body-d);}
@@ -287,11 +281,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
   border:1px solid var(--line-d); color:var(--brass-light); font-size:26px; margin-bottom:22px;
 }
 .form-grid h3{font-family:var(--serif); font-weight:600; font-size:28px; margin-bottom:14px; color:var(--white);}
-.form-status{
-  display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.1em;
-  text-transform:uppercase; color:var(--brass-light); margin-bottom:16px;
-}
-.form-status::before{content:""; width:7px; height:7px; background:var(--brass-light); border-radius:50%;}
 .form-detail{
   font-size:13.5px; line-height:1.85; color:var(--body-d); background:rgba(255,255,255,0.04);
   border:1px solid var(--line-d); padding:32px;
@@ -370,7 +359,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
   <div class="hero-mesh"></div>
   <div class="hero-lines"></div>
   <div class="wrap hero-inner">
-    <div class="eyebrow">DANIEL MICHELIN</div>
     <h1>Uma carreira construída com <em>constância</em>, disciplina e propósito.</h1>
     <p class="hero-sub">Tenho 17 anos e atuo nas áreas de Marketing e Contabilidade, participando do desenvolvimento de empresas por meio de estratégia, organização e gestão — guiado por convicções que não mudam com o resultado do dia.</p>
     <div class="hero-ctas">
@@ -392,7 +380,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 <section class="sec sec-sobre" id="sobre">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Quem sou eu</div>
       <h2>Sobre <i>mim</i></h2>
     </div>
     <div class="sobre-quote-wrap reveal">
@@ -442,7 +429,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 <section class="sec sec-empresas sec-dark" id="empresas">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Onde trabalho</div>
       <h2>Marketing e <i>Contabilidade</i>, lado a lado</h2>
       <p>Atuo diretamente no desenvolvimento de duas empresas do Grupo Iter, cada uma com sua própria frente de atuação.</p>
     </div>
@@ -475,7 +461,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 <section class="sec sec-convicoes" id="convicoes">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Convicções</div>
       <h2>No que <i>acredito</i></h2>
       <p>Não trato essas convicções como interesses à parte — elas são a base de como decido, trabalho e me relaciono.</p>
     </div>
@@ -510,7 +495,6 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
     <div class="form-grid">
       <div class="reveal">
         <div class="form-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
-        <div class="form-status">Em andamento</div>
         <h3>Formação</h3>
       </div>
       <div class="form-detail reveal">
