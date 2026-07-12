@@ -9,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root{
-  --forest-deep:#0F2A1D; --forest:#20402F; --sage:#5C7A63; --brass:#AD8332; --brass-light:#C9A354;
+  --forest-deep:#0F2A1D; --forest:#20402F; --sage:#5C7A63; --brass:#AD8332; --brass-light:#C9A354; --brass-ink:#7A5A1E;
   --paper:#EDEAE0; --line-l:#D7D1C0;
   --ink:#12160F; --ink-2:#1B2318;
   --body-l:#54533F; --body-d:#C7C7B6;
@@ -19,7 +19,7 @@
   --serif:'Newsreader', serif; --sans:'Manrope', sans-serif;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; scroll-padding-top:96px;}
 body{
   font-family:var(--sans); color:var(--ink); background:var(--paper);
   -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5;
@@ -28,7 +28,7 @@ img{display:block; max-width:100%;}
 a{color:inherit; text-decoration:none;}
 .eyebrow{font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;}
 .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
-section{position:relative;}
+section{position:relative; scroll-margin-top:96px;}
 ::selection{background:var(--brass); color:var(--ink);}
 a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:3px;}
 
@@ -163,7 +163,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 /* ---------------- SECTION HEADERS ---------------- */
 .sec{padding:130px 0;}
 .sec-head{margin-bottom:60px; max-width:660px;}
-.sec-head .eyebrow{color:var(--brass); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+.sec-head .eyebrow{color:var(--brass-ink); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
 .sec-head .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass);}
 .sec-head h2{
   font-family:var(--serif); font-weight:600; font-size:clamp(32px,4vw,48px); line-height:1.08;
@@ -178,19 +178,20 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 
 /* ---------------- SOBRE ---------------- */
 .sec-sobre{background:var(--paper);}
-.sobre-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+.sobre-quote-wrap{max-width:720px; margin:0 auto 56px; text-align:center;}
 .sobre-quote{
-  font-family:var(--serif); font-style:italic; font-size:22px; line-height:1.5; color:var(--ink);
-  border-left:2px solid var(--brass); padding-left:26px;
+  font-family:var(--serif); font-style:italic; font-size:clamp(20px,2.4vw,26px); line-height:1.5; color:var(--ink);
 }
-.sobre-body p{font-size:14.5px; line-height:1.85; color:var(--body-l); margin-bottom:18px;}
+.sobre-quote-rule{width:40px; height:1px; background:var(--brass); margin:0 auto 22px;}
+.sobre-body{columns:2; column-gap:60px;}
+.sobre-body p{font-size:14.5px; line-height:1.85; color:var(--body-l); margin-bottom:18px; break-inside:avoid;}
 .sobre-body p:last-child{margin-bottom:0;}
 .sobre-body strong{color:var(--ink);}
 .sobre-closing{
-  margin-top:28px; padding-top:24px; border-top:1px solid var(--line-l);
+  margin-top:36px; padding-top:24px; border-top:1px solid var(--line-l); text-align:center;
   font-family:var(--serif); font-style:italic; font-size:15px; color:var(--forest);
 }
-@media (max-width:860px){ .sobre-grid{grid-template-columns:1fr; gap:36px;} }
+@media (max-width:860px){ .sobre-body{columns:1;} }
 
 /* ---------------- PILARES ---------------- */
 .pilares-grid{
@@ -228,11 +229,18 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 .sec-empresas{background:var(--ink); color:var(--white);}
 .empresas-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line-d);}
 .empresa-card{
-  padding:52px 44px; border-right:1px solid var(--line-d); transition:background .25s ease;
+  padding:44px 44px 52px; border-right:1px solid var(--line-d); border-top:3px solid var(--forest);
+  transition:background .25s ease;
 }
-.empresa-card:last-child{border-right:none;}
+.empresa-card:last-child{border-right:none; border-top-color:var(--brass-light);}
 .empresa-card:hover{background:rgba(255,255,255,0.04);}
-.empresa-num{font-family:var(--serif); font-size:13px; color:var(--body-d); display:block; margin-bottom:26px;}
+.empresa-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:28px;}
+.empresa-icn{
+  width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-d); color:var(--forest); font-size:20px;
+}
+.empresa-card:last-child .empresa-icn{color:var(--brass-light);}
+.empresa-num{font-family:var(--serif); font-size:13px; color:var(--body-d);}
 .empresa-name{font-family:var(--serif); font-weight:600; font-size:28px; margin-bottom:14px; color:var(--white);}
 .empresa-tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--brass-light); margin-bottom:18px;}
 .empresa-desc{font-size:14.5px; line-height:1.75; color:var(--body-d); margin-bottom:34px; max-width:38ch;}
@@ -252,18 +260,24 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 
 /* ---------------- CONVICÇÕES ---------------- */
 .sec-convicoes{background:var(--paper);}
-.conv-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:44px 60px;}
-.conv-item{display:flex; gap:22px;}
+.conv-grid{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--line-l); border-left:1px solid var(--line-l);
+}
+.conv-item{
+  border-right:1px solid var(--line-l); border-bottom:1px solid var(--line-l);
+  padding:36px 40px 40px;
+}
 .conv-icn{
-  width:46px; height:46px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--line-l); font-size:20px; color:var(--forest);
+  width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-l); font-size:20px; color:var(--forest); margin-bottom:20px;
 }
 .conv-item:nth-child(4n+2) .conv-icn{color:var(--brass);}
 .conv-item:nth-child(4n+3) .conv-icn{color:var(--sage);}
 .conv-item:nth-child(4n+4) .conv-icn{color:var(--brass);}
-.conv-item h3{font-size:16.5px; font-weight:700; margin-bottom:8px; color:var(--ink);}
+.conv-item h3{font-size:17px; font-weight:700; margin-bottom:10px; color:var(--ink);}
 .conv-item p{font-size:13.5px; line-height:1.7; color:var(--body-l);}
-@media (max-width:760px){ .conv-grid{grid-template-columns:1fr; gap:34px;} }
+@media (max-width:760px){ .conv-grid{grid-template-columns:1fr;} }
 
 /* ---------------- FORMAÇÃO ---------------- */
 .sec-formacao{background:var(--ink); color:var(--white);}
@@ -381,19 +395,18 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
       <div class="eyebrow">Quem sou eu</div>
       <h2>Sobre <i>mim</i></h2>
     </div>
-    <div class="sobre-grid">
-      <div class="reveal">
-        <p class="sobre-quote">"Acredito que uma carreira sólida é construída por meio de aprendizado constante, disciplina e responsabilidade."</p>
-      </div>
-      <div class="sobre-body reveal">
-        <p>São esses princípios que orientam minha trajetória pessoal e profissional. Atualmente atuo nas áreas de <strong>Marketing</strong> e <strong>Contabilidade</strong>, participando do desenvolvimento de empresas por meio de estratégias de comunicação, organização de processos e gestão.</p>
-        <p>Em breve iniciarei minha graduação em Contabilidade, com o objetivo de me especializar em Economia e aprofundar meus conhecimentos em Finanças, Gestão Empresarial e desenvolvimento de negócios.</p>
-        <p>Sou cristão reformado e procuro levar essa convicção para todas as áreas da minha vida. Acredito que integridade, compromisso e excelência não são apenas valores profissionais, mas princípios que devem orientar a maneira como trabalhamos, tomamos decisões e nos relacionamos com as pessoas.</p>
-        <p>Tenho grande interesse pelo universo dos negócios e busco compreender como empresas crescem, como mercados se desenvolvem e como boas decisões podem gerar resultados consistentes. Por isso, mantenho uma rotina constante de estudos voltada à Economia, Finanças, Marketing, tecnologia e gestão, sempre procurando transformar conhecimento em aplicação prática.</p>
-        <p>Meu objetivo é construir uma carreira de longo prazo, desenvolvendo competência técnica, visão estratégica e capacidade de liderança para assumir desafios cada vez maiores. Acredito que grandes resultados são consequência de constância, preparo e disposição para aprender continuamente.</p>
-        <p class="sobre-closing">Nesta página você encontrará um pouco mais sobre minha trajetória, as empresas das quais faço parte e os projetos em que atuo. Seja bem-vindo.</p>
-      </div>
+    <div class="sobre-quote-wrap reveal">
+      <div class="sobre-quote-rule"></div>
+      <p class="sobre-quote">"Acredito que uma carreira sólida é construída por meio de aprendizado constante, disciplina e responsabilidade."</p>
     </div>
+    <div class="sobre-body reveal">
+      <p>São esses princípios que orientam minha trajetória pessoal e profissional. Atualmente atuo nas áreas de <strong>Marketing</strong> e <strong>Contabilidade</strong>, participando do desenvolvimento de empresas por meio de estratégias de comunicação, organização de processos e gestão.</p>
+      <p>Em breve iniciarei minha graduação em Contabilidade, com o objetivo de me especializar em Economia e aprofundar meus conhecimentos em Finanças, Gestão Empresarial e desenvolvimento de negócios.</p>
+      <p>Sou cristão reformado e procuro levar essa convicção para todas as áreas da minha vida. Acredito que integridade, compromisso e excelência não são apenas valores profissionais, mas princípios que devem orientar a maneira como trabalhamos, tomamos decisões e nos relacionamos com as pessoas.</p>
+      <p>Tenho grande interesse pelo universo dos negócios e busco compreender como empresas crescem, como mercados se desenvolvem e como boas decisões podem gerar resultados consistentes. Por isso, mantenho uma rotina constante de estudos voltada à Economia, Finanças, Marketing, tecnologia e gestão, sempre procurando transformar conhecimento em aplicação prática.</p>
+      <p>Meu objetivo é construir uma carreira de longo prazo, desenvolvendo competência técnica, visão estratégica e capacidade de liderança para assumir desafios cada vez maiores. Acredito que grandes resultados são consequência de constância, preparo e disposição para aprender continuamente.</p>
+    </div>
+    <p class="sobre-closing reveal">Nesta página você encontrará um pouco mais sobre minha trajetória, as empresas das quais faço parte e os projetos em que atuo. Seja bem-vindo.</p>
 
     <div class="pilares-grid">
       <div class="pilar-item reveal">
@@ -426,23 +439,29 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-of
 </section>
 
 <!-- ============ EMPRESAS ============ -->
-<section class="sec sec-empresas" id="empresas">
+<section class="sec sec-empresas sec-dark" id="empresas">
   <div class="wrap">
-    <div class="sec-head sec-dark reveal">
+    <div class="sec-head reveal">
       <div class="eyebrow">Onde trabalho</div>
-      <h2>As empresas que <i>construo</i></h2>
+      <h2>Marketing e <i>Contabilidade</i>, lado a lado</h2>
       <p>Atuo diretamente no desenvolvimento de duas empresas do Grupo Iter, cada uma com sua própria frente de atuação.</p>
     </div>
     <div class="empresas-grid reveal">
       <div class="empresa-card">
-        <span class="empresa-num">01</span>
+        <div class="empresa-top">
+          <div class="empresa-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+          <span class="empresa-num">01</span>
+        </div>
         <div class="empresa-tag">Marketing &amp; Conteúdo</div>
         <div class="empresa-name">Iter Mídia</div>
         <p class="empresa-desc">Marketing estratégico, produção de conteúdo e posicionamento digital para empresas que querem crescer com organização.</p>
         <a href="empresas/marketing.html" class="empresa-link">Conhecer a Iter Mídia <svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
       </div>
       <div class="empresa-card">
-        <span class="empresa-num">02</span>
+        <div class="empresa-top">
+          <div class="empresa-icn"><svg stroke="currentColor" fill="none" stroke-width="1.6" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></div>
+          <span class="empresa-num">02</span>
+        </div>
         <div class="empresa-tag">Contábil &amp; Financeiro</div>
         <div class="empresa-name">Iter Gestão Contábil</div>
         <p class="empresa-desc">Contábil, fiscal, trabalhista, legalização e BPO financeiro — a gestão empresarial por trás dos números.</p>
